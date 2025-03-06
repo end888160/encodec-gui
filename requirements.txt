@@ -1,0 +1,6 @@
+torch
+torchaudio
+tqdm
+encodec
+soundfile
+python-ffmpeg
