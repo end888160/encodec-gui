@@ -67,11 +67,11 @@ python gui.py
 3. **Choose the model** (24kHz for small size, 48kHz for high quality)  
 4. **Set bitrate** (higher = better quality but larger file)  
 5. **Enable chunking** if converting long audio (prevents memory issues)  
-6. Click **Convert** to encode the file! 🎵  
+6. Click **Convert** to encode the file!
 
 ---
 
-## 🛠 Troubleshooting
+## Troubleshooting
 
 1. **PyTorch CUDA Not Working?**
 - Check if CUDA is installed:
