@@ -12,7 +12,21 @@ This is a **Tkinter-based GUI** for **Facebook Research's EnCodec** audio compre
 
 ## Installation
 
-### 1. Install Dependencies
+### 1. Clone the Repository
+
+Clone the repository from GitHub:
+
+  ```sh
+  git clone https://github.com/end888160/encodec-gui.git
+  ```
+
+Move into the cloned directory:
+
+  ```sh
+  cd encodec-gui
+  ```
+
+### 2. Install Dependencies
 
 Make sure you have **Python 3.8+** installed. Then, install the required dependences:
 
@@ -20,7 +34,7 @@ Make sure you have **Python 3.8+** installed. Then, install the required depende
   pip install -r requirements.txt
   ```
 
-### 2. Install FFmpeg (Required for Non-WAV Files)
+### 3. Install FFmpeg (Required for Non-WAV Files)
 
 If you are going to convert MP3, FLAC, or OGG files, install **FFmpeg**:
 
@@ -38,7 +52,7 @@ If you are going to convert MP3, FLAC, or OGG files, install **FFmpeg**:
   brew install ffmpeg
   ```
 
-### 3. (Optional) Install PyTorch with CUDA for GPU Acceleration
+### 4. (Optional) Install PyTorch with CUDA for GPU Acceleration
 
 If you have an **NVIDIA GPU**, install PyTorch with CUDA **for much faster processing**:
 
