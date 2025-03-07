@@ -1,4 +1,4 @@
-# EnCodec Audio Converter GUI
+# EnCodec Audio Converter GUI (Unofficial)
 
 This is a **Tkinter-based GUI** for **Facebook Research's EnCodec** audio compression codec. It allows you to:
 
@@ -22,7 +22,7 @@ Make sure you have **Python 3.8+** installed. Then, install the required depende
 
 ### 2. Install FFmpeg (Required for Non-WAV Files)
 
-If you plan to convert MP3, FLAC, or OGG files, install **FFmpeg**:
+If you are going to convert MP3, FLAC, or OGG files, install **FFmpeg**:
 
 - **Windows**: [Download FFmpeg](https://ffmpeg.org/download.html) and add it to your system PATH.
 
@@ -48,6 +48,12 @@ Run this in **Command Prompt (Windows)** or **Terminal (Linux/Mac):**
 
   ```sh
   nvcc --version
+  ```
+
+If nvcc is not found, try running:
+
+  ```sh
+  nvidia-smi
   ```
 
 Look for something like **CUDA Version 12.1**.

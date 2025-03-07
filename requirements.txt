@@ -2,5 +2,6 @@ torch
 torchaudio
 tqdm
 encodec
-soundfile
+soundfile; sys_platform == "win32"
+sox; sys_platform == "linux"
 python-ffmpeg
