@@ -16,9 +16,9 @@ This is a **Tkinter-based GUI** for **Facebook Research's EnCodec** audio compre
 
 Make sure you have **Python 3.8+** installed. Then, install the required dependences:
 
-```sh
-pip install -r requirements.txt
-```
+  ```sh
+  pip install -r requirements.txt
+  ```
 
 ### 2. Install FFmpeg (Required for Non-WAV Files)
 
@@ -93,7 +93,7 @@ Verify installation:
 - Check if CUDA is installed:
 
   ```sh
-  python -c "import torch; print(torch.cuda.is_available())"
+  python -c "import torch; print(torch.cuda.is_available())" # Should return True
   ```
 
 - Try reinstalling PyTorch with the correct CUDA version (see installation guide above).
