@@ -99,10 +99,10 @@ def choose_output_folder():
 		folder_output.delete(0, tk.END)
 		folder_output.insert(0, output_folder)
 
-def get_disk_space(path):
-	# Get disk space in MB
-	disk_space = shutil.disk_usage(path).total / (1024 * 1024)
-	return disk_space
+def get_free_disk_space(path):
+	# Get free disk space in bytes
+	free_space = shutil.disk_usage(path).free
+	return free_space
 
 
 # Preload models
@@ -289,12 +289,13 @@ def encode_audio():
 	except ValueError:
 		messagebox.showerror("Error", "Invalid chunk length")
 		return
-	disk_space = get_disk_space(folder_output.get())
+	disk_space = get_free_disk_space(tempfile.gettempdir())
+	logging.info(f"Disk space: {disk_space / 1024 ** 2:.2f} MB")
 	if disk_space < 1024 ** 2:
-		messagebox.showerror("Not enough disk space", f"Not enough disk space ({disk_space:.2f} MB)\n Please choose a different output folder.")
+		messagebox.showerror("Not enough disk space", f"Not enough disk space ({disk_space / 1024 ** 2:.2f} MB)\nPlease choose a different output folder.")
 		return
 	if disk_space < 1024 ** 3:
-		ask_continue = messagebox.askyesno("Low disk space", f"Low disk space. ({disk_space:.2f} MB)\n Do you want to continue?")
+		ask_continue = messagebox.askyesno("Low disk space", f"Low disk space. ({disk_space / 1024 ** 2:.2f} MB)\nDo you want to continue?")
 		if not ask_continue:
 			return
 	output_folder = folder_output.get()
