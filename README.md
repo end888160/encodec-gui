@@ -1,6 +1,6 @@
 # EnCodec Audio Converter GUI (Unofficial)
 
-This is a **Tkinter-based GUI** for **Facebook Research's EnCodec** audio compression codec. It allows you to:
+This is a **Tkinter-based GUI** for **[Facebook Research's EnCodec](https://github.com/facebookresearch/encodec)** audio compression codec. It allows you to:
 
 - Convert audio files to **EnCodec (.ecdc) format**  
 - Choose between **24kHz** (low bitrate) and **48kHz** (high-quality) models  
@@ -108,7 +108,7 @@ Verify installation:
 
 ## Troubleshooting
 
-1. **PyTorch CUDA Not Working?**
+### 1. **PyTorch CUDA Not Working?**
 
 - Check if CUDA is installed:
 
@@ -118,13 +118,29 @@ Verify installation:
 
 - Try reinstalling PyTorch with the correct CUDA version (see installation guide above).
 
-2. **FFmpeg Not Found?**
+### 2. **FFmpeg Not Found?**
 
 - Make sure it's installed and added to your **system PATH** (Windows users).
 
-3. **"RuntimeError: Out of Memory"?**
+### 3. **"RuntimeError: Out of Memory"?**
 
 - Enable **chunking** and increase the **chunk size**.
+
+### 4. **Running out of storage?**
+
+Try:
+
+- Clean up unused files.
+
+- Use a different temporary directory using extra arguments:
+
+  ```sh
+  python gui.py --tempdir /path/to/temp/dir
+  ```
+
+### 5. **Other Issues?**
+
+- Open an [issue](https://github.com/end888160/encodec-gui/issues) on GitHub.
 
 ---
 

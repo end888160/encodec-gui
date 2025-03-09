@@ -6,6 +6,7 @@ import time
 import shutil
 import zipfile
 import logging
+import argparse
 import tempfile
 import threading
 import traceback
@@ -13,17 +14,25 @@ import webbrowser
 import subprocess
 from tqdm import tqdm
 
+logging.basicConfig(level=logging.DEBUG, format="[%(levelname)s] %(message)s")
+parser = argparse.ArgumentParser(description='EnCodec Audio Converter GUI', epilog='There are no other arguments because this is a GUI')
+parser.add_argument('--tempdir', type=str, default=None, help='temporary directory')
+args = parser.parse_args()
+
+TEMP = args.tempdir if args.tempdir else tempfile.gettempdir()
+logging.info(f"Using temporary directory: {TEMP}")
+
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog, messagebox
 
 import torch
+import soundfile
 import torchaudio
 from encodec import EncodecModel
 from encodec.utils import convert_audio
 print("PyTorch version:", torch.__version__)
 
-logging.basicConfig(level=logging.DEBUG, format="[%(levelname)s] %(message)s")
 
 # GUI Setup
 root = tk.Tk()
@@ -37,6 +46,7 @@ selected_file = ""
 selected_model = tk.StringVar(value="48kHz")
 selected_bitrate = tk.StringVar(value="6.0")
 use_chunking_var = tk.BooleanVar(value=True)
+
 
 class ToolTip:
 	def __init__(self, widget, text):
@@ -166,8 +176,7 @@ def encode_audio_thread():
 			if is_tool("ffmpeg"):
 				status_label.config(text="Converting to WAV...")
 				root.update_idletasks()
-
-				temp_wav_file = tempfile.NamedTemporaryFile(suffix=".wav", delete=False)
+				temp_wav_file = tempfile.NamedTemporaryFile(suffix=".wav", delete=False, dir=TEMP)
 				sample_rate = 48000 if selected_model.get() == "48kHz" else 24000
 				cmd = ["ffmpeg", "-i", input_file, "-ar", str(sample_rate),"-y", temp_wav_file.name]
 				print(" ".join(cmd))
@@ -257,6 +266,8 @@ def encode_audio_thread():
 		messagebox.showinfo("Success", "Encoding complete! Saved as " + output_file + "\nElapsed time: " + time.strftime("%H:%M:%S", time.gmtime(time.time() - start_time)))
 		progress_bar["value"] = 0
 	except Exception as e:
+		status_label.config(text="Error")
+		root.update_idletasks()
 		print(traceback.format_exc())
 		logging.error(f"Failed to encode '{input_file}' due to {e}")
 		messagebox.showerror(type(e).__name__, traceback.format_exc())
@@ -288,10 +299,10 @@ def encode_audio():
 	except ValueError:
 		messagebox.showerror("Error", "Invalid chunk length")
 		return
-	disk_space = get_free_disk_space(tempfile.gettempdir())
-	logging.info(f"Disk space: {disk_space / 1024 ** 2:.2f} MB")
+	disk_space = get_free_disk_space(TEMP)
+	logging.info(f"Free disk space: {disk_space / 1024 ** 2:.2f} MB")
 	if disk_space < 1024 ** 2:
-		messagebox.showerror("Not enough disk space", f"Not enough disk space ({disk_space / 1024 ** 2:.2f} MB)\nPlease choose a different output folder.")
+		messagebox.showerror("Disk is full", f"Not enough disk space ({disk_space / 1024 ** 2:.2f} MB)\nPlease choose a different output folder.")
 		return
 	if disk_space < 1024 ** 3:
 		ask_continue = messagebox.askyesno("Low disk space", f"Low disk space. ({disk_space / 1024 ** 2:.2f} MB)\nDo you want to continue?")
