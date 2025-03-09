@@ -18,7 +18,6 @@ from tkinter import ttk
 from tkinter import filedialog, messagebox
 
 import torch
-import soundfile
 import torchaudio
 from encodec import EncodecModel
 from encodec.utils import convert_audio
