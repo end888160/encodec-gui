@@ -178,7 +178,14 @@ def encode_audio_thread():
 				root.update_idletasks()
 				temp_wav_file = tempfile.NamedTemporaryFile(suffix=".wav", delete=False, dir=TEMP)
 				sample_rate = 48000 if selected_model.get() == "48kHz" else 24000
-				cmd = ["ffmpeg", "-i", input_file, "-ar", str(sample_rate),"-y", temp_wav_file.name]
+				cmd = [
+					"ffmpeg", 
+					'-hide_banner',
+					"-i", input_file, 
+					"-ar", str(sample_rate),
+					"-y", 
+					temp_wav_file.name
+				]
 				print(" ".join(cmd))
 				subprocess.run(cmd, check=True)
 				input_file = temp_wav_file.name

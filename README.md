@@ -113,7 +113,7 @@ Verify installation:
 - Check if CUDA is installed:
 
   ```sh
-  python -c "import torch; print(torch.cuda.is_available())" # Should return True
+  python -c "import torch; print(torch.cuda.is_available())" 
   ```
 
 - Try reinstalling PyTorch with the correct CUDA version (see installation guide above).
